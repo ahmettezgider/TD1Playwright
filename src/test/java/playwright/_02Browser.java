@@ -1,9 +1,6 @@
 package playwright;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserType;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.*;
 import org.testng.annotations.Test;
 import utils.Utils;
 
@@ -139,4 +136,29 @@ public class _02Browser {
         browser.close();
         playwright.close();
     }
+
+
+    @Test
+    public void testBrowserContent(){
+        Playwright playwright = Playwright.create();
+
+        Browser browser = playwright.chromium().launch(
+                new BrowserType.LaunchOptions()
+                        .setHeadless(false)
+                        .setChannel("chrome")
+        );
+
+        BrowserContext context = browser.newContext();
+
+        Page page = context.newPage();
+
+        page.navigate("https://www.saucedemo.com/");
+        page.locator("#user-name").fill("standard_user");
+        page.locator("//input[@id='password']").fill("secret_sauce");
+        page.locator("input[name='login-button']").click();
+        browser.close();
+        playwright.close();
+    }
+
+
 }

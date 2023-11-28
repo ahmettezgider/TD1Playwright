@@ -29,4 +29,18 @@ public class _01CreatePlaywright {
         // playwrigt kapatilir
         playwright.close();
     }
+
+    public static void main(String[] args) {
+
+        try (Playwright playwright = Playwright.create()) {
+            Browser browser = playwright.chromium().launch();
+            Page page = browser.newPage();
+            page.navigate("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+            browser.close();
+            playwright.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 }
